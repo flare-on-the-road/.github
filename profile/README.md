@@ -32,18 +32,18 @@ flowchart LR
     vision["Vision Model Server<br/>FastAPI<br/>RT-DETRv2 ONNX"]
     vlm["VLM Client<br/>2차 화재 여부 판단"]
 
-    user --> frontend
-    frontend --> proxy
-    proxy --> backend
-    backend --> db
-    backend --> r2
-    backend --> vision
+    user <--> frontend
+    frontend <--> proxy
+    proxy <--> backend
+    backend <--> db
+    backend <--> r2
+    backend <--> vision
 
-    worker --> its
-    worker --> r2
-    worker --> vision
-    worker --> vlm
-    worker --> backend
+    worker <--> its
+    worker <--> r2
+    worker <--> vision
+    worker <--> vlm
+    worker <--> backend
 ```
 
 프론트엔드, 백엔드, 워커, 모델 서버를 분리한 이유는 각 영역의 변경 주기와 장애 범위가 다르기 때문입니다. UI 변경은 프론트엔드에서 독립적으로 진행하고, API 도메인 로직은 백엔드에서 관리하며, 무거운 AI 추론과 CCTV 수집 작업은 별도 프로세스로 격리했습니다. 이 구조는 실무에서 흔히 사용하는 서비스 분리, 외부 연동 격리, 장애 전파 최소화 관점과 맞닿아 있습니다.
